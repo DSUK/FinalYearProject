@@ -1,0 +1,84 @@
+# depslib dependency file v1.0
+1365131847 source:/home/james/Dropbox/OpenGlProgramming/attempt4/main.cpp
+	"includes.h"
+	<list>
+
+1364695219 /home/james/Dropbox/OpenGlProgramming/attempt4/includes.h
+	<GL/gl.h>
+	<SDL/SDL.h>
+	<cstdio>
+	<GL/glu.h>
+	<cmath>
+	<iostream>
+	"vec.cpp"
+	"MouseClass.cpp"
+	"SurfaceClass.cpp"
+
+1365132838 /home/james/Dropbox/OpenGlProgramming/attempt4/SurfaceClass.cpp
+	"MouseClass.cpp"
+	<cstdlib>
+	<ctime>
+
+1364864470 /home/james/Dropbox/OpenGlProgramming/attempt4/MouseClass.cpp
+	"SurfaceClass.cpp"
+
+1365045102 /home/james/Dropbox/OpenGlProgramming/attempt4/vec.cpp
+	"includes.h"
+
+1365192042 source:/home/james/Dropbox/OpenGlProgramming/attempt5/main.cpp
+	"includes.h"
+	<list>
+
+1364695219 /home/james/Dropbox/OpenGlProgramming/attempt5/includes.h
+	<GL/gl.h>
+	<SDL/SDL.h>
+	<cstdio>
+	<GL/glu.h>
+	<cmath>
+	<iostream>
+	"vec.cpp"
+	"MouseClass.cpp"
+	"SurfaceClass.cpp"
+
+1365208112 /home/james/Dropbox/OpenGlProgramming/attempt5/vec.cpp
+	"includes.h"
+	<xmmintrin.h>
+	<pmmintrin.h>
+
+1365191960 /home/james/Dropbox/OpenGlProgramming/attempt5/MouseClass.cpp
+	"SurfaceClass.cpp"
+
+1365192316 /home/james/Dropbox/OpenGlProgramming/attempt5/SurfaceClass.cpp
+	"MouseClass.cpp"
+	<cstdlib>
+	<ctime>
+
+1390851469 source:/home/james/Dropbox/OpenGlProgramming/attempt6/main.cpp
+	"includes.h"
+	<list>
+
+1390850700 /home/james/Dropbox/OpenGlProgramming/attempt6/includes.h
+	<GL/glew.h>
+	<SDL/SDL.h>
+	<SDL/SDL_opengl.h>
+	<GL/glu.h>
+	<cmath>
+	<iostream>
+	<fstream>
+	"vec.cpp"
+	"MouseClass.cpp"
+	"SurfaceClass.cpp"
+
+1389964416 /home/james/Dropbox/OpenGlProgramming/attempt6/vec.cpp
+	"includes.h"
+	<xmmintrin.h>
+	<pmmintrin.h>
+
+1366536018 /home/james/Dropbox/OpenGlProgramming/attempt6/MouseClass.cpp
+	"SurfaceClass.cpp"
+
+1389965128 /home/james/Dropbox/OpenGlProgramming/attempt6/SurfaceClass.cpp
+	"MouseClass.cpp"
+	<cstdlib>
+	<ctime>
+
