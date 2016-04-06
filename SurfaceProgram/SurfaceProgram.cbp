@@ -21,9 +21,10 @@
 					<Add option="-lSDL" />
 					<Add option="-lGLU" />
 					<Add option="-msse3" />
+					<Add option="-lGLEW" />
 				</Linker>
 			</Target>
-			<Target title="Wandows32">
+			<Target title="Windows32 (might not work)">
 				<Option output="bin/Win32/SurfaceProgram.exe" prefix_auto="1" extension_auto="0" />
 				<Option type="1" />
 				<Option compiler="win_32_mingw" />
@@ -32,7 +33,7 @@
 					<Add option="-g" />
 				</Compiler>
 			</Target>
-			<Target title="Wandows64">
+			<Target title="Windows64 (might not work)">
 				<Option output="SurfaceProgram" prefix_auto="1" extension_auto="1" />
 				<Option type="0" />
 				<Option compiler="win_64_mingw" />
@@ -47,20 +48,20 @@
 		<Unit filename="../SurfaceClass.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="fragment.frag">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="vertex.vert">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="../includes.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="../main.cpp">
 			<Option target="Debug" />
-			<Option target="Wandows32" />
+			<Option target="Windows32 (might not work)" />
 		</Unit>
 		<Unit filename="../vec.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="fragment.frag">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="vertex.vert">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Extensions>
