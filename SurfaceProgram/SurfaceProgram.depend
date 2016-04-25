@@ -111,3 +111,32 @@
 	<cstdlib>
 	<ctime>
 
+1461619452 source:e:\coding\finalyearproject\main.cpp
+	"includes.h"
+	<list>
+
+1461619452 e:\coding\finalyearproject\includes.h
+	<GL/glew.h>
+	<SDL/SDL.h>
+	<SDL/SDL_opengl.h>
+	<GL/glu.h>
+	<cmath>
+	<iostream>
+	<fstream>
+	"vec.cpp"
+	"MouseClass.cpp"
+	"SurfaceClass.cpp"
+
+1461619452 e:\coding\finalyearproject\vec.cpp
+	"includes.h"
+	<xmmintrin.h>
+	<pmmintrin.h>
+
+1461619452 e:\coding\finalyearproject\mouseclass.cpp
+	"SurfaceClass.cpp"
+
+1461619452 e:\coding\finalyearproject\surfaceclass.cpp
+	"MouseClass.cpp"
+	<cstdlib>
+	<ctime>
+

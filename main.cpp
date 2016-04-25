@@ -65,7 +65,7 @@ class throwcontainer
 };
 
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	//declare SDL surface
 	SDL_Surface *surface;
