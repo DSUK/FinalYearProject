@@ -42,6 +42,11 @@
 					<Add option="-lSDLmain" />
 					<Add option="-lSDL" />
 					<Add option="-lglew32" />
+					<Add option="-static-libgcc" />
+					<Add option="-static-libstdc++" />
+					<Add option="-Wl,-Bstatic" />
+					<Add option="-lstdc++" />
+					<Add option="-lpthread" />
 				</Linker>
 			</Target>
 			<Target title="Windows64 (might not work)">
