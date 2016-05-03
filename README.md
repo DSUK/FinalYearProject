@@ -14,8 +14,18 @@ r - > random/rain
 
 f - > wireframe on/off
 
-##Mouse (when captured):
+###Mouse (when captured):
 
 move - > move camera
 
 left click - > throw ball
+
+##Dependencies:
+
+OpenGL 2.0
+
+SDL 1.2
+
+GLEW
+
+mingw32 on windows.
