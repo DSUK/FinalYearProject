@@ -57,9 +57,12 @@ Windows Has 3 options, in order of difficulty :
 
     pacman -S mingw64/mingw-w64-x86_64-gcc mingw64/mingw-w64-x86_64-SDL mingw64/mingw-w64-x86_64-glew mingw64/mingw-w64-x86_64-make
 
->open codeblocks and go to Settings > Compiler > ToolChain Executables > set compiler's installation to {msys install}/mgw64/
+>open codeblocks and go to Settings > Compiler > ToolChain Executables > set compiler's installation to {msys install}/mingw64/
 
 >click "auto detect"
+
+> if that fails, include GCC, G++ etc from {msys install}/mingw64/bin/
+
 
 >"Ok"
 
