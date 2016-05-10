@@ -21,8 +21,7 @@
 					<Add option="-lSDL" />
 					<Add option="-lGLU" />
 					<Add option="-msse3" />
-					<Add option="-DGLEW_STATIC" />
-					<Add option="-l:libGLEW.a" />
+					<Add option="-lGLEW" />
 				</Linker>
 			</Target>
 			<Target title="Win x64">

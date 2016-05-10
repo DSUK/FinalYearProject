@@ -37,7 +37,7 @@ mingw32 on windows.
 
 the project uses Code blocks, SDL1.2, GLU, GLEW and opengl
 
-    $sudo apt-get install libgl-dev libsdl1.2-dev libglu-dev libglew-dev codeblocks
+    $sudo apt-get install libglu1-mesa libglu1-mesa-dev libgl1-mesa-glx libgl1-mesa-dev libsdl1.2-dev libglu-dev libglew-dev codeblocks
 
 should download everything you need, just open the .cbp in codeblocks and press the green triangle.
 
