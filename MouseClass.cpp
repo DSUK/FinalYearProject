@@ -96,6 +96,16 @@ class Mouse_class
 						case SDLK_f:
 							heightmap->switchFillMode();
 						break;
+						case SDLK_F7:
+                            position= vec(1.0,3.9f,0.0f);
+                            rotation = vec(154.0,49.0f,0.0);
+                            directionv = vec(0.0,0.0,-1.0);
+                            directionvcoe = 0.0f;
+                            orthocoe = 0.0f;
+                        break;
+						case SDLK_F1:
+                            //asm("int $3");
+						break;
 						default:
 						break;
 					}
@@ -167,11 +177,10 @@ class Mouse_class
 		glRotatef(rotation.pos.y,cos(rotation.pos.x*degtorad),0.0,sin(rotation.pos.x*degtorad));
 		glTranslatef(-position.pos.x,-position.pos.y,-position.pos.z);
 	}
-	//PreRender Translateions
-	//
+
 };
 void handleresize(int x, int y)
-{ //a little buggy
+{
 	SDL_SetVideoMode(x,y, 32, SDL_OPENGL|SDL_RESIZABLE| SDL_DOUBLEBUF);
 	glViewport(0,0,x,y);
 	glMatrixMode(GL_PROJECTION);

@@ -67,9 +67,7 @@ class throwcontainer
 
 int main(int argc, char *argv[])
 {
-	//declare SDL surface
 	SDL_Surface *surface;
-	//init window
 	SDL_Init(SDL_INIT_EVERYTHING);
 	surface = SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, SDL_OPENGL|SDL_RESIZABLE| SDL_DOUBLEBUF);
 	if(surface == NULL){ printf("SDL Init Error\n"); return 1;} //error check code
@@ -95,11 +93,11 @@ void programloop()
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(45.0,(GLfloat)WINDOW_WIDTH/(GLfloat)WINDOW_HEIGHT,1.0,700.0);
-	glEnable(GL_NORMALIZE); //autonormals the inputted normals
+	glEnable(GL_NORMALIZE);
 	throwcontainer balllist;
 	glMatrixMode(GL_MODELVIEW);
-	//glColor3f(0.18431372549,0.59215686274,0.7294117647);//nabbed from a picture of water
-	while(continueloop) //maybe: input and GL on separate threads?
+
+	while(continueloop)
 	{
 		continueloop = mouse.handleEvent(&heightmap);
 		balllist.cullLow();
@@ -115,12 +113,8 @@ void programloop()
 		}
 		glClear(GL_COLOR_BUFFER_BIT);
 		glLoadIdentity();
-		//float pos[] = {-2.0,2.0,-3.0,1.0};
-		//glLightfv(GL_LIGHT0,GL_POSITION,pos);
-		///light position
 		glUniform3f(glGetUniformLocation(program,"lightpos"),-2.0,2.0,-3.0);
-		///light properties
-		glUniform3f(glGetUniformLocation(program,"amblight"),0.1,0.1,0.1);
+        glUniform3f(glGetUniformLocation(program,"amblight"),0.1,0.1,0.1);
 		glUniform3f(glGetUniformLocation(program,"diffuselight"),0.6,0.6,0.6);
 		glUniform3f(glGetUniformLocation(program,"speclight"),1.0,1.0,1.0);
 
@@ -150,17 +144,14 @@ void DrawBall(GLfloat rad,vec pos)
 }
 void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID)
 {
-	//load fragment shader
-	///create shader
 	*FragID = glCreateShader(GL_FRAGMENT_SHADER);
-	///load file
 	std::ifstream input("fragment.frag");
 	if(!input.is_open())
 	{
 		std::cout << "error loading fragment.frag \n";
 		return;
 	}
-	///compress file into 1 line text file
+	//concat file into 1 string
 	std::string shadersource = "";
 	char temp[500];
 	while(!input.eof())
@@ -170,27 +161,21 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 		shadersource += '\n';
 	}
 	const GLchar* fragsource = shadersource.c_str();
-	///glshadersource
 	glShaderSource(*FragID,1,&fragsource,NULL);
-	///compile
 	glCompileShader(*FragID);
-	///report
 	char status[1500];
 	glGetShaderInfoLog(*FragID,1500,NULL,status);
 	std::cout << "Fragment Compile Status : \n" << status << std::endl;
 
 
-	//load vertex shader
-	 ///create shader
+
 	*VertID = glCreateShader(GL_VERTEX_SHADER);
-	///load file
 	std::ifstream input2("vertex.vert");
 	if(!input2.is_open())
 	{
 		std::cout << "error loading vertex.vert \n";
 		return;
 	}
-	///compress file into 1 line text file
 	shadersource = "";
 	while(!input2.eof())
 	{
@@ -199,11 +184,8 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 		shadersource += '\n';
 	}
 	const GLchar* vertsource = shadersource.c_str();
-	///glshadersource
 	glShaderSource(*VertID,1,&vertsource,NULL);
-	///compile
 	glCompileShader(*VertID);
-	///report
 	glGetShaderInfoLog(*VertID,1500,NULL,status);
 	std::cout << "Vertex Compile Status : \n" << status << std::endl;
 

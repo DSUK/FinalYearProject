@@ -2,3 +2,5 @@ Fragment Compile Status :
 
 Vertex Compile Status : 
 
+rotation = (156,42,0)
+position = ( 1.11431,-1.1773e+015,-0.0962874)

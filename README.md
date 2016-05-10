@@ -15,6 +15,8 @@ r - > random/rain
 
 f - > wireframe on/off
 
+F7 -> reset camera position
+
 ###Mouse (when captured):
 
 move - > move camera
@@ -45,11 +47,11 @@ should download everything you need, just open the .cbp in codeblocks and press 
 
 Windows Has 3 options, in order of difficulty :
 
-1. Do Nothing:
+* Do Nothing:
 
 >I have already included a pre-built version in /SurfaceProgram/bin/Win64
 
-2. Imitate Linux
+* Imitate Linux
 
 >Get MSYS2: https://msys2.github.io/ and Codeblocks (without MinGW32): http://www.codeblocks.org/
 
@@ -68,7 +70,7 @@ Windows Has 3 options, in order of difficulty :
 
 >open .cbp file and click play
 
-3. The Hard way
+* The Hard way
 
 >Get codeblocks with MinGW32 and get SDL from https://www.libsdl.org/download-1.2.php and GLEW from http://glew.sourceforge.net/
 GLEW doesn't offically support MinGW32, It is usllay built in a farily hacky way (http://stackoverflow.com/questions/6005076/building-glew-on-windows-with-mingw)
