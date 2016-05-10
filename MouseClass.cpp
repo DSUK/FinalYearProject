@@ -1,6 +1,6 @@
 #ifndef _MOUSE_CLASS
 #define _MOUSE_CLASS
-#define degtorad M_PI/180.0
+#define degtorad (3.141592653589793/180.0)
 #include "SurfaceClass.cpp"
 //#include "includes.h"
 class Surface_class;
@@ -34,9 +34,11 @@ class Mouse_class
 	Mouse_class()
 	{
 		camera = false;
-		position= vec(1.0,3.9f,0.0f);
-		rotation = vec(154.0,49.0f,0.0);
-		directionv = vec(0.0,0.0,-1.0);
+		position= vec(1.0f,3.9f,0.0f);
+		rotation = vec(154.0f,49.0f,0.0f);
+		directionv = vec(0.0f,0.0f,-1.0f);
+		directionvcoe = 0.0f;
+		orthocoe = 0.0f;
 	}
 	vec getposition()
 	{
@@ -167,9 +169,9 @@ class Mouse_class
 		}
 		return 1;
 	}
-	void movement()
+	void movement(float delta)
 	{
-		position = position + (directionvcoe*directionv) + (orthocoe*ortho);
+		position = position + delta*((directionvcoe*directionv) + (orthocoe*ortho));
 	}
 	void PreRenderTranslate()
 	{

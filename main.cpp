@@ -1,8 +1,12 @@
 
 #include "includes.h"
 #include <list>
+#include <chrono>
 const int WINDOW_HEIGHT = 768;
 const int WINDOW_WIDTH = 1024;
+
+typedef std::chrono::high_resolution_clock Time;
+typedef std::chrono::duration<float> fsecond;
 
 void loadShaders(unsigned int*,unsigned int*, unsigned int*);
 void DrawBall(GLfloat,vec);
@@ -96,13 +100,17 @@ void programloop()
 	glEnable(GL_NORMALIZE);
 	throwcontainer balllist;
 	glMatrixMode(GL_MODELVIEW);
-
+    auto loop_end_time = Time::now();
+    auto loop_start_time = Time::now();
 	while(continueloop)
 	{
 		continueloop = mouse.handleEvent(&heightmap);
 		balllist.cullLow();
 		balllist.moveobjects(0.05,0.0005,&heightmap);
-		mouse.movement();
+		loop_start_time = loop_end_time;
+		loop_end_time = Time::now();
+		fsecond delta = (loop_end_time - loop_start_time);
+		mouse.movement(delta.count()*512.0f);
 		switch(continueloop)
 		{
 			case 2:
@@ -189,7 +197,6 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 	glGetShaderInfoLog(*VertID,1500,NULL,status);
 	std::cout << "Vertex Compile Status : \n" << status << std::endl;
 
-	//load program and add shaders to it
 	*program = glCreateProgram();
 	glAttachShader(*program,*VertID);
 	glAttachShader(*program, *FragID);
