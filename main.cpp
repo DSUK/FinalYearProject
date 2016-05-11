@@ -2,6 +2,7 @@
 #include "includes.h"
 #include <list>
 #include <chrono>
+
 const int WINDOW_HEIGHT = 768;
 const int WINDOW_WIDTH = 1024;
 
@@ -110,7 +111,7 @@ void programloop()
 		loop_start_time = loop_end_time;
 		loop_end_time = Time::now();
 		fsecond delta = (loop_end_time - loop_start_time);
-		mouse.movement(delta.count()*512.0f);
+		mouse.movement(delta.count()*256.0f);
 		switch(continueloop)
 		{
 			case 2:
@@ -122,8 +123,8 @@ void programloop()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glLoadIdentity();
 		glUniform3f(glGetUniformLocation(program,"lightpos"),-2.0,2.0,-3.0);
-        glUniform3f(glGetUniformLocation(program,"amblight"),0.1,0.1,0.1);
-		glUniform3f(glGetUniformLocation(program,"diffuselight"),0.6,0.6,0.6);
+        glUniform3f(glGetUniformLocation(program,"amblight"),0.2,0.2,0.2);
+		glUniform3f(glGetUniformLocation(program,"diffuselight"),0.8,0.8,0.8);
 		glUniform3f(glGetUniformLocation(program,"speclight"),1.0,1.0,1.0);
 
 		mouse.PreRenderTranslate();

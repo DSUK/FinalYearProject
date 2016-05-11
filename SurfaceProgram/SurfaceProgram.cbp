@@ -14,6 +14,7 @@
 				<Compiler>
 					<Add option="-march=athlon64" />
 					<Add option="-march=core2" />
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
