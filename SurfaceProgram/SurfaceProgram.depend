@@ -3,6 +3,8 @@
 	"includes.h"
 	<list>
 
+1462859581 h"
+
 1364695219 /home/james/Dropbox/OpenGlProgramming/attempt4/includes.h
 	<GL/gl.h>
 	<SDL/SDL.h>
@@ -14,10 +16,14 @@
 	"MouseClass.cpp"
 	"SurfaceClass.cpp"
 
+1462920736 ass.cpp"
+
 1365132838 /home/james/Dropbox/OpenGlProgramming/attempt4/SurfaceClass.cpp
 	"MouseClass.cpp"
 	<cstdlib>
 	<ctime>
+
+1462912405 
 
 1364864470 /home/james/Dropbox/OpenGlProgramming/attempt4/MouseClass.cpp
 	"SurfaceClass.cpp"
@@ -44,6 +50,8 @@
 	"includes.h"
 	<xmmintrin.h>
 	<pmmintrin.h>
+
+1462912405 .h>
 
 1365191960 /home/james/Dropbox/OpenGlProgramming/attempt5/MouseClass.cpp
 	"SurfaceClass.cpp"
@@ -195,6 +203,36 @@
 	"SurfaceClass.cpp"
 
 1462912405 e:\coding\hfghfdh\finalyearproject\surfaceclass.cpp
+	"MouseClass.cpp"
+	<cstdlib>
+	<ctime>
+
+1462931095 source:/home/james/Documents/Demos/dfgd/FinalYearProject/main.cpp
+	"includes.h"
+	<list>
+	<chrono>
+
+1462919654 /home/james/Documents/Demos/dfgd/FinalYearProject/includes.h
+	<GL/glew.h>
+	<SDL/SDL.h>
+	<SDL/SDL_opengl.h>
+	<GL/glu.h>
+	<cmath>
+	<iostream>
+	<fstream>
+	"vec.cpp"
+	"MouseClass.cpp"
+	"SurfaceClass.cpp"
+
+1462919654 /home/james/Documents/Demos/dfgd/FinalYearProject/vec.cpp
+	"includes.h"
+	<xmmintrin.h>
+	<pmmintrin.h>
+
+1462958687 /home/james/Documents/Demos/dfgd/FinalYearProject/MouseClass.cpp
+	"SurfaceClass.cpp"
+
+1462919652 /home/james/Documents/Demos/dfgd/FinalYearProject/SurfaceClass.cpp
 	"MouseClass.cpp"
 	<cstdlib>
 	<ctime>

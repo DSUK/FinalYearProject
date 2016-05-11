@@ -37,6 +37,7 @@ class Mouse_class
 		position= vec(1.0f,3.9f,0.0f);
 		rotation = vec(154.0f,49.0f,0.0f);
 		directionv = vec(0.0f,0.0f,-1.0f);
+		ortho = vec(0.0f, 0.0f, 0.0f);
 		directionvcoe = 0.0f;
 		orthocoe = 0.0f;
 	}
