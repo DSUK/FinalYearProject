@@ -1,7 +1,12 @@
-
-#include "includes.h"
 #include <list>
 #include <chrono>
+#include <GL/glew.h>
+#include <GL/gl.h>
+#include "Vec.h"
+#include "Surface.h"
+#include "InputHandler.h"
+#include <iostream>
+#include <fstream>
 
 const int WINDOW_HEIGHT = 768;
 const int WINDOW_WIDTH = 1024;
@@ -10,13 +15,14 @@ typedef std::chrono::high_resolution_clock Time;
 typedef std::chrono::duration<float> fsecond;
 
 void loadShaders(unsigned int*,unsigned int*, unsigned int*);
-void DrawBall(GLfloat,vec);
+void DrawBall(GLfloat,Vec);
+void programLoop();
 struct ball
 {
-		vec pos;
-		vec vel;
+		Vec pos;
+		Vec vel;
 		bool collide;
-		ball(vec position,vec velocity)
+		ball(Vec position,Vec velocity)
 		{
 			pos = position;
 			vel = velocity;
@@ -38,7 +44,7 @@ class throwcontainer
 				DrawBall(rad,iter->pos);
 			}
 	}
-	void moveobjects(GLfloat delta_time,GLfloat movement,Surface_class *surface)
+	void moveobjects(GLfloat delta_time,GLfloat movement,Surface *surface)
 	{
 		for(std::list<ball>::iterator iter = objectlist.begin(); iter != objectlist.end(); ++iter)
 		{
@@ -47,7 +53,7 @@ class throwcontainer
 			if(iter->collide == false && iter->pos.pos.y <= 0)
 			{
 				iter->collide = true;
-				surface->BallLand(iter->pos.pos.x,iter->pos.pos.z,0.0);
+				surface->ballLand(iter->pos.pos.x,iter->pos.pos.z,0.0);
 			}
 		}
 	}
@@ -61,7 +67,7 @@ class throwcontainer
 			}
 		}
 	}
-	void addtolist(vec vel,vec pos)
+	void addtolist(Vec vel,Vec pos)
 	{
 		objectlist.push_back(ball(pos,vel));
 	}
@@ -82,19 +88,19 @@ int main(int argc, char *argv[])
 	{
 		std::cerr << "Glew error: " << glewGetErrorString(err) << std::endl;
 	}
-	programloop();
+	programLoop();
 
 	//exit SDL
 	SDL_Quit();
 	return 0;
 }
-void programloop()
+void programLoop()
 {
 	unsigned int frag,vertex,program;
 	loadShaders(&program,&frag,&vertex);
 	int continueloop =1;
-	Surface_class heightmap(100,100,0.05);
-	Mouse_class mouse;
+	Surface heightmap(100,100,0.05);
+	InputHandler mouse;
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(45.0,(GLfloat)WINDOW_WIDTH/(GLfloat)WINDOW_HEIGHT,1.0,700.0);
@@ -115,7 +121,7 @@ void programloop()
 		switch(continueloop)
 		{
 			case 2:
-				balllist.addtolist(mouse.getdirectionv(),mouse.getposition());
+				balllist.addtolist(mouse.getDirectionVector(),mouse.getPosition());
 			break;
 			default:
 			break;
@@ -127,10 +133,10 @@ void programloop()
 		glUniform3f(glGetUniformLocation(program,"diffuselight"),0.8,0.8,0.8);
 		glUniform3f(glGetUniformLocation(program,"speclight"),1.0,1.0,1.0);
 
-		mouse.PreRenderTranslate();
+		mouse.preRenderTranslate();
 		heightmap.calculateSurfaceNormals();
-		heightmap.setheights();
-		heightmap.draw_surface(program);
+		heightmap.setHeights();
+		heightmap.drawSurface(program);
 		balllist.drawobjects(0.5);
 		glFlush();
 		SDL_GL_SwapBuffers();
@@ -143,18 +149,18 @@ void programloop()
 	glDeleteProgram(program);
 
 }
-void DrawBall(GLfloat rad,vec pos)
+void DrawBall(GLfloat rad,Vec pos)
 {
-		glTranslatef(pos.pos.x,pos.pos.y,pos.pos.z);
-		GLUquadricObj* Sphere=gluNewQuadric();
-		gluSphere(Sphere,0.1,20,20);
-		gluDeleteQuadric(Sphere);
-		glTranslatef(-pos.pos.x,-pos.pos.y,-pos.pos.z);
+	glTranslatef(pos.pos.x,pos.pos.y,pos.pos.z);
+	GLUquadricObj* Sphere = gluNewQuadric();
+	gluSphere(Sphere,0.1,20,20);
+	gluDeleteQuadric(Sphere);
+	glTranslatef(-pos.pos.x,-pos.pos.y,-pos.pos.z);
 }
 void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID)
 {
 	*FragID = glCreateShader(GL_FRAGMENT_SHADER);
-	std::ifstream input("fragment.frag");
+	std::ifstream input("shaders/fragment.frag");
 	if(!input.is_open())
 	{
 		std::cout << "error loading fragment.frag \n";
@@ -179,7 +185,7 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 
 
 	*VertID = glCreateShader(GL_VERTEX_SHADER);
-	std::ifstream input2("vertex.vert");
+	std::ifstream input2("shaders/vertex.vert");
 	if(!input2.is_open())
 	{
 		std::cout << "error loading vertex.vert \n";
