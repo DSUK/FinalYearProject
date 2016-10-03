@@ -37,40 +37,15 @@ mingw32 on windows.
 
 ###Linux
 
-the project uses Code blocks, SDL1.2, GLU, GLEW and opengl
+the project uses premake5, SDL1.2, GLU, GLEW and opengl
 
-    $sudo apt-get install libglu1-mesa libglu1-mesa-dev libgl1-mesa-glx libgl1-mesa-dev libsdl1.2-dev libglu-dev libglew-dev codeblocks
+    $sudo apt-get install libglu1-mesa libglu1-mesa-dev libgl1-mesa-glx libgl1-mesa-dev libsdl1.2-dev libglu-dev libglew-dev 
 
-should download everything you need, just open the .cbp in codeblocks and press the green triangle.
+also needs [premake5](http://premake.github.io/download.html) installed
+
+    $premake5 gmake
+    $make
 
 ###Windows
 
-Windows Has 3 options, in order of difficulty :
-
-* Do Nothing:
-
->I have already included a pre-built version in /SurfaceProgram/bin/Win64
-
-* Imitate Linux
-
->Get MSYS2: https://msys2.github.io/ and Codeblocks (without MinGW32): http://www.codeblocks.org/
-
->open MSYS2 and type:
-
-    pacman -S mingw64/mingw-w64-x86_64-gcc mingw64/mingw-w64-x86_64-SDL mingw64/mingw-w64-x86_64-glew mingw64/mingw-w64-x86_64-make
-
->open codeblocks and go to Settings > Compiler > ToolChain Executables > set compiler's installation to {msys install}/mingw64/
-
->click "auto detect"
-
-> if that fails, include GCC, G++ etc from {msys install}/mingw64/bin/
-
-
->"Ok"
-
->open .cbp file and click play
-
-* The Hard way
-
->Get codeblocks with MinGW32 and get SDL from https://www.libsdl.org/download-1.2.php and GLEW from http://glew.sourceforge.net/
-GLEW doesn't offically support MinGW32, It is usllay built in a farily hacky way (http://stackoverflow.com/questions/6005076/building-glew-on-windows-with-mingw)
+TBC
