@@ -1,0 +1,5 @@
+#Gmake
+Makefile
+SurfaceProgram.make
+bin/*
+obj/*
