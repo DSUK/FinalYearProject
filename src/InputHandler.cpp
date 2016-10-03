@@ -1,3 +1,11 @@
+#include "Surface.h"
+#include "Vec.h"
+
+#include <iostream>
+#include <SDL/SDL_opengl.h>
+#include <SDL/SDL.h>
+#include <cmath>
+
 #include "InputHandler.h"
 
 float range(float min, float num, float max) {

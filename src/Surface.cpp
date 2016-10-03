@@ -1,4 +1,15 @@
+#include "Vec.h"
+
+#define DAMP 0.999
+#define NO_SDL_GLEXT
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <SDL/SDL_opengl.h>
+#include <SDL/SDL.h>
+
 #include "Surface.h"
+
 float sinc(float input) {
 	if(input == 0.0) {
 		return 1.0;

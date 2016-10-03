@@ -1,14 +1,9 @@
 #pragma once
 
-#define DAMP 0.999
 #include "Vec.h"
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
+
 #include <GL/glew.h>
-#define NO_SDL_GLEXT
-#include <SDL/SDL_opengl.h>
-#include <SDL/SDL.h>
+
 class Surface {
 	struct vert {
 

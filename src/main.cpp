@@ -2,11 +2,13 @@
 #include <chrono>
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <iostream>
+#include <fstream>
+#include <SDL/SDL.h>
+
 #include "Vec.h"
 #include "Surface.h"
 #include "InputHandler.h"
-#include <iostream>
-#include <fstream>
 
 const int WINDOW_HEIGHT = 768;
 const int WINDOW_WIDTH = 1024;
