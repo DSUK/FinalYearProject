@@ -1,7 +1,11 @@
 #pragma once
 #include <GL/glew.h>
 #define NO_SDL_GLEXT
+#ifndef _MSC_VER
 #include <SDL/SDL_opengl.h>
+#else
+#include <SDL_opengl.h>
+#endif
 #include <xmmintrin.h> //libry for SSE extention
 #include <pmmintrin.h> //library for more SSE
 
@@ -14,7 +18,7 @@ struct Vec
 		} pos;
 	};
 	Vec();
-	Vec (__m128 input);
+	Vec(__m128 input);
 	Vec(GLfloat ix, GLfloat iy, GLfloat iz);
 	void normalise();
 	Vec toUnit();

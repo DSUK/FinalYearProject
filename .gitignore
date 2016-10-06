@@ -3,3 +3,12 @@ Makefile
 SurfaceProgram.make
 bin/*
 obj/*
+
+#VS2015
+.vs/
+SurfaceProgram.VC.opendb
+SurfaceProgram.sdf
+SurfaceProgram.sln
+SurfaceProgram.vcxproj
+x64/
+

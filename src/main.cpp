@@ -4,7 +4,11 @@
 #include <GL/gl.h>
 #include <iostream>
 #include <fstream>
+#ifndef _MSC_VER
 #include <SDL/SDL.h>
+#else
+#include <SDL.h>
+#endif
 
 #include "Vec.h"
 #include "Surface.h"
@@ -17,7 +21,7 @@ typedef std::chrono::high_resolution_clock Time;
 typedef std::chrono::duration<float> fsecond;
 
 void loadShaders(unsigned int*,unsigned int*, unsigned int*);
-void DrawBall(GLfloat,Vec);
+void DrawBall(GLfloat,Vec pos);
 void programLoop();
 struct ball
 {
@@ -78,24 +82,6 @@ class throwcontainer
 };
 
 
-int main(int argc, char *argv[])
-{
-	SDL_Surface *surface;
-	SDL_Init(SDL_INIT_EVERYTHING);
-	surface = SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, SDL_OPENGL|SDL_RESIZABLE| SDL_DOUBLEBUF);
-	if(surface == NULL){ printf("SDL Init Error\n"); return 1;} //error check code
-	SDL_WM_SetCaption(argv[0],NULL);
-	GLenum err = glewInit();
-	if(err!= GLEW_OK)
-	{
-		std::cerr << "Glew error: " << glewGetErrorString(err) << std::endl;
-	}
-	programLoop();
-
-	//exit SDL
-	SDL_Quit();
-	return 0;
-}
 void programLoop()
 {
 	unsigned int frag,vertex,program;
@@ -211,4 +197,23 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 	glAttachShader(*program, *FragID);
 	glLinkProgram(*program);
 	glUseProgram(*program);
+}
+
+int main(int argc, char *argv[])
+{
+	SDL_Surface *surface;
+	SDL_Init(SDL_INIT_EVERYTHING);
+	surface = SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, SDL_OPENGL|SDL_RESIZABLE| SDL_DOUBLEBUF);
+	if(surface == NULL){ printf("SDL Init Error\n"); return 1;} //error check code
+	SDL_WM_SetCaption(argv[0],NULL);
+	GLenum err = glewInit();
+	if(err!= GLEW_OK)
+	{
+		std::cerr << "Glew error: " << glewGetErrorString(err) << std::endl;
+	}
+	programLoop();
+
+	//exit SDL
+	SDL_Quit();
+	return 0;
 }

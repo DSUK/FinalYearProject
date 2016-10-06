@@ -2,8 +2,13 @@
 #include "Vec.h"
 
 #include <iostream>
+#ifndef _MSC_VER
 #include <SDL/SDL_opengl.h>
 #include <SDL/SDL.h>
+#else
+#include <SDL_opengl.h>
+#include <SDL.h>
+#endif
 #include <cmath>
 
 #include "InputHandler.h"

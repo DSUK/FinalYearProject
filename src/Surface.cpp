@@ -5,8 +5,13 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#ifndef _MSC_VER
 #include <SDL/SDL_opengl.h>
 #include <SDL/SDL.h>
+#else
+#include <SDL_opengl.h>
+#include <SDL.h>
+#endif
 
 #include "Surface.h"
 
