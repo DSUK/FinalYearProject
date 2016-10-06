@@ -3,22 +3,10 @@ workspace "SurfaceProgram"
 	configuration "vs*"
 		platforms{ "Win64" }
 	
-	configuration "gmake"
-		platforms{ "Linux", "Linux64" }
-
 	filter { "platforms:Win64" }
 		system "Windows"
 		architecture "x64"
 	
-	filter { "platforms:Linux" }
-		system "Linux"
-		architecture "x32"
-	
-	filter { "platforms:Linux64" }
-		system "Linux"
-		architecture "x64"
-
-
 	project "SurfaceProgram"
 		kind "ConsoleApp"
 		language "C++"
