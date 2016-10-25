@@ -5,6 +5,7 @@
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL.h>
 #else
+#include <cstdio>
 #include <SDL_opengl.h>
 #include <SDL.h>
 #endif

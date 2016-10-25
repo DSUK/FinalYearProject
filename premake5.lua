@@ -19,5 +19,5 @@ workspace "SurfaceProgram"
 			links { "pthread", "GL", "GLEW", "GLU" }
 		
 		configuration "vs*"
-			links { "SDLmain", "opengl32", "glew32", "glu32" }
+			links { "SDL2main", "opengl32", "glew32", "glu32" }
 
