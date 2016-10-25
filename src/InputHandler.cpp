@@ -1,10 +1,9 @@
 #include "Surface.h"
 #include "Vec.h"
 
-#include <iostream>
 #ifndef _MSC_VER
-#include <SDL/SDL_opengl.h>
-#include <SDL/SDL.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL.h>
 #else
 #include <SDL_opengl.h>
 #include <SDL.h>
@@ -21,8 +20,10 @@ float range(float min, float num, float max) {
 	}
 	return num;
 }
-void handle_resize(int x, int y) {
-	SDL_SetVideoMode(x,y, 32, SDL_OPENGL|SDL_RESIZABLE| SDL_DOUBLEBUF);
+void handle_resize(Uint32 window_id, int x, int y) {
+	SDL_Window *window = SDL_GetWindowFromID(window_id);
+	SDL_assert(window != nullptr);
+	SDL_SetWindowSize(window,x,y);
 	glViewport(0,0,x,y);
 	glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -76,12 +77,8 @@ int InputHandler::handleEvent(Surface *heightmap) { //returns an integer signal
 						heightmap->rainSwitch();
 					break;
 					case SDLK_F5:
-						std::cout << "rotation = (" << rotation.pos.x << "," <<
-							rotation.pos.y << "," << rotation.pos.z << ")"<<
-							std::endl;
-						std::cout << "position = ( " << position.pos.x << "," <<
-							position.pos.y << "," << position.pos.z << ")"<<
-							std::endl;
+						printf("rotation = ( %f, %f, %f )\n", rotation.pos.x, rotation.pos.y, rotation.pos.z);
+						printf("position = ( %f, %f, %f )\n", position.pos.x, position.pos.y, position.pos.z);
 					break;
 					case SDLK_SPACE:
 						camera = !camera;
@@ -129,8 +126,10 @@ int InputHandler::handleEvent(Surface *heightmap) { //returns an integer signal
 			case SDL_QUIT:
 				return 0;
 			break;
-			case SDL_VIDEORESIZE:
-				handle_resize(event.resize.w,event.resize.h);
+			case SDL_WINDOWEVENT:
+				if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
+					handle_resize(event.window.windowID,event.window.data1,event.window.data2);
+				}
 			break;
 			case SDL_MOUSEBUTTONDOWN:
 				if(event.button.button == SDL_BUTTON_LEFT) {

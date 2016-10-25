@@ -13,6 +13,7 @@ class InputHandler {
 	SDL_Event event;
 	GLfloat directionvcoe;
 	GLfloat orthocoe;
+	SDL_Window *window;
 
 	public:
 	InputHandler();

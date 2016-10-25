@@ -6,8 +6,8 @@
 #include <ctime>
 #include <cmath>
 #ifndef _MSC_VER
-#include <SDL/SDL_opengl.h>
-#include <SDL/SDL.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL.h>
 #else
 #include <SDL_opengl.h>
 #include <SDL.h>

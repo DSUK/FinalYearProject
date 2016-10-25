@@ -2,10 +2,10 @@
 #include <chrono>
 #include <GL/glew.h>
 #include <GL/gl.h>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #ifndef _MSC_VER
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #else
 #include <SDL.h>
 #endif
@@ -22,7 +22,7 @@ typedef std::chrono::duration<float> fsecond;
 
 void loadShaders(unsigned int*,unsigned int*, unsigned int*);
 void DrawBall(GLfloat,Vec pos);
-void programLoop();
+void programLoop(SDL_Window *window);
 struct ball
 {
 		Vec pos;
@@ -82,7 +82,7 @@ class throwcontainer
 };
 
 
-void programLoop()
+void programLoop(SDL_Window *window)
 {
 	unsigned int frag,vertex,program;
 	loadShaders(&program,&frag,&vertex);
@@ -127,7 +127,7 @@ void programLoop()
 		heightmap.drawSurface(program);
 		balllist.drawobjects(0.5);
 		glFlush();
-		SDL_GL_SwapBuffers();
+		SDL_GL_SwapWindow(window);
 
 	}
 	glDetachShader(program,vertex);
@@ -201,19 +201,31 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 
 int main(int argc, char *argv[])
 {
-	SDL_Surface *surface;
 	SDL_Init(SDL_INIT_EVERYTHING);
-	surface = SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, SDL_OPENGL|SDL_RESIZABLE| SDL_DOUBLEBUF);
-	if(surface == NULL){ printf("SDL Init Error\n"); return 1;} //error check code
-	SDL_WM_SetCaption(argv[0],NULL);
+	SDL_Window *window = SDL_CreateWindow(
+		argv[0],
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		WINDOW_WIDTH,
+		WINDOW_HEIGHT,
+		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
+	);
+
+	SDL_assert(window != nullptr);
+
+	SDL_GLContext gl_context = SDL_GL_CreateContext(window);
+
 	GLenum err = glewInit();
+
 	if(err!= GLEW_OK)
 	{
-		std::cerr << "Glew error: " << glewGetErrorString(err) << std::endl;
+		fprintf(stderr,"Glew error: %s\n",glewGetErrorString(err));
+		SDL_assert(err != GLEW_OK);
 	}
-	programLoop();
+	programLoop(window);
+	SDL_GL_DeleteContext(gl_context);
+	SDL_DestroyWindow(window);
 
-	//exit SDL
 	SDL_Quit();
 	return 0;
 }

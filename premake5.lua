@@ -12,7 +12,7 @@ workspace "SurfaceProgram"
 		language "C++"
 		files { "src/*.cpp" }
 		includedirs { "headers" }
-		links { "SDL"}
+		links { "SDL2"}
 
 		configuration "gmake" 
 			buildoptions{ "-std=c++11", "-Wall", "-Werror", "-msse3", "-march=core2" }
