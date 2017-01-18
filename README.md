@@ -27,7 +27,7 @@ left click - > throw ball
 
 OpenGL 2.0
 
-SDL 1.2
+SDL 2.0
 
 GLEW
 
