@@ -48,11 +48,11 @@ void programLoop(SDL_Window *window)
 		fsecond delta = (loop_end_time - loop_start_time);
 		mouse.movement(delta.count()*256.0f);
 		ballList.cullLow();
-		ballList.moveobjects(0.05,0.0005,&heightmap);
+		ballList.moveObjects(0.05,0.0005,&heightmap);
 		switch(continueloop)
 		{
 			case 2:
-				ballList.addtolist(mouse.getDirectionVector(),mouse.getPosition());
+				ballList.addToList(mouse.getDirectionVector(),mouse.getPosition());
 			break;
 			default:
 			break;
@@ -68,7 +68,7 @@ void programLoop(SDL_Window *window)
 		heightmap.calculateSurfaceNormals();
 		heightmap.setHeights();
 		heightmap.drawSurface(program);
-		ballList.drawobjects(0.5);
+		ballList.drawObjects(0.5);
 		glFlush();
 		SDL_GL_SwapWindow(window);
 

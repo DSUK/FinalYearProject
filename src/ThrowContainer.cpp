@@ -3,23 +3,23 @@
 #include "Ball.h"
 
 
-void ThrowContainer::drawobjects(GLfloat rad)
+void ThrowContainer::drawObjects(GLfloat rad)
 {
 		for(auto iter : objectList)
 		{
 			iter.draw(rad);
 		}
 }
-void ThrowContainer::moveobjects(GLfloat delta_time,GLfloat movement,Surface *surface)
+void ThrowContainer::moveObjects(GLfloat delta_time,GLfloat movement,Surface *surface)
 {
-	for(std::list<Ball>::iterator iter = objectList.begin(); iter != objectList.end(); ++iter)
+	for(auto &iter : objectList)
 	{
-		iter->vel.pos.y -= movement;
-		iter-> pos = iter->pos + delta_time*iter->vel;
-		if(iter->collide == false && iter->pos.pos.y <= 0)
+		iter.vel.pos.y -= movement;
+		iter. pos = iter.pos + delta_time*iter.vel;
+		if(iter.collide == false && iter.pos.pos.y <= 0)
 		{
-			iter->collide = true;
-			surface->ballLand(iter->pos.pos.x,iter->pos.pos.z,0.0);
+			iter.collide = true;
+			surface->ballLand(iter.pos.pos.x,iter.pos.pos.z);
 		}
 	}
 }
@@ -33,7 +33,7 @@ void ThrowContainer::cullLow()
 		}
 	}
 }
-void ThrowContainer::addtolist(Vec vel, Vec pos)
+void ThrowContainer::addToList(Vec vel, Vec pos)
 {
 	objectList.push_back(Ball(pos,vel));
 }

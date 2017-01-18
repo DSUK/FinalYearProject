@@ -31,13 +31,13 @@ Surface::Surface(GLint x, GLint y, GLfloat distance) {
 	ddist = distance*distance;
 	plane = new vert[width*length]; //allocate memory for the plane
 	rain = false;
-	fill = LINE;
+	fill = GL_LINE;
 	srand(time);
-	for(int i = 0; i<x;++i)
+	for(int i = 0; i < x; ++i)
 	{
-	    for(int j = 0; j<y;++j)
+	    for(int j = 0; j < y; ++j)
 	    {
-		setPosition(i,j,Vec(((GLfloat)i)*distance,0,((GLfloat)j)*distance));
+			setPosition(i,j,Vec(((GLfloat)i)*distance,0,((GLfloat)j)*distance));
 	    }
 	}
 	zeroAll();
@@ -94,12 +94,15 @@ void Surface::calculateSurfaceNormals() {
 }
 
 void Surface::addToNormal(int x, int y, Vec input) {
+	SDL_assert(x < width && y < length && x >= 0 && y >= 0);
     plane[x+y*width].normal += input;
 }
 
 void Surface::setPosition(int x, int y, Vec input) {
+	SDL_assert(x < width && y < length && x >= 0 && y >= 0);
     plane[x+y*width].pos = input;
 }
+
 void Surface::drawSurface(GLint shaderprogram) {
 	glUniform3f(glGetUniformLocation(shaderprogram,"samb"),0.1,0.1,0.5);
 	glUniform3f(glGetUniformLocation(shaderprogram,"sdif"),0.1,0.1,0.9);
@@ -122,23 +125,19 @@ void Surface::drawSurface(GLint shaderprogram) {
 }
 
 Surface::vert Surface::accessVert(int x, int y) {
-	if(x < width && y < length && x >= 0 && y >= 0) {
-		return plane[x+y*width];
-	} else {
-		throw printf("acessVert out of bounds error!!!\n");
-	}
+	SDL_assert(x < width && y < length && x >= 0 && y >= 0);
+	return plane[x+y*width];
 }
 
 void Surface::setHeights() {
 	dDivXsurface();
 	dDivYsurface();
 	calculateSurfaceHeight();
-	if(rain) {
-	    if((rand()&3) == 3) {
+	if(rain && (rand()&3) == 3) {
 		rainDrop(rand()%width, rand()%length);
-	    }
 	}
 }
+
 void Surface::dDivXsurface() {
 		//0 edge
 	for(int i = 0; i < length; ++i) {
@@ -157,6 +156,7 @@ void Surface::dDivXsurface() {
 				2*accessVert(j,i).pos.pos.y)/ddist);
 	}
 }
+
 void Surface::dDivYsurface() {
 	//0 edge
 	for(int i = 0; i < width; ++i) {
@@ -175,6 +175,7 @@ void Surface::dDivYsurface() {
 				2*accessVert(i,j).pos.pos.y)/ddist);
 	}
 }
+
 void Surface::calculateSurfaceHeight() {
 	//wave equation
 	for(int i = 0; i< length*width; ++i) {
@@ -183,24 +184,20 @@ void Surface::calculateSurfaceHeight() {
 		plane[i].pos.pos.y = plane[i].pos.pos.y*DAMP + time*plane[i].div_h;
 	}
 }
+
 void Surface::setTime(GLfloat input) {
 	time = input;
 }
+
 void Surface::throwStone(int i, int j) {
 	setDivh(i,j,-10.0);
 }
+
 void Surface::switchFillMode() {
-	switch(fill) {
-		case LINE:
-			fill = FILL;
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		break;
-		case FILL:
-			fill = LINE;
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		break;
-	}
+	fill ^= GL_FILL^GL_LINE;
+	glPolygonMode(GL_FRONT_AND_BACK, fill);
 }
+
 void Surface::rainDrop(int x, int y) {
 	setDivh(x,y,accessVert(x,y).div_h -0.5);
 }
@@ -233,7 +230,7 @@ void Surface::setDDivh(int x, int y, GLfloat value){
 	}
 }
 
-void Surface::ballLand(GLfloat x, GLfloat y, GLfloat rad) {
+void Surface::ballLand(GLfloat x, GLfloat y) {
 	if((x > 0) & (y > 0) & (y < length*dist) & (x < width*dist)) { //calculate widths
 	    GLfloat xmod = fmod(x,dist);
 	    GLfloat ymod = fmod(y,dist);

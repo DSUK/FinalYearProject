@@ -8,9 +8,9 @@ class ThrowContainer
 	public:
 	ThrowContainer() { }
 
-	void drawobjects(GLfloat rad);
-	void moveobjects(GLfloat delta_time,GLfloat movement,Surface *surface);
+	void drawObjects(GLfloat rad);
+	void moveObjects(GLfloat delta_time,GLfloat movement,Surface *surface);
 	void cullLow();
-	void addtolist(Vec vel, Vec pos);
+	void addToList(Vec vel, Vec pos);
 };
 

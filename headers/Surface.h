@@ -14,11 +14,7 @@ class Surface {
 		Vec pos;
 		Vec normal;
 	};
-	enum fillmode {
-		LINE,
-		FILL
-	};
-	fillmode fill;
+	GLuint fill;
 	bool rain; //fixes flat plane bumping problem
 	GLfloat time;
 	GLint width;
@@ -49,5 +45,5 @@ class Surface {
 	void setDDivx(int x, int y, GLfloat value);
 	void setDDivy(int x, int y, GLfloat value);
 	void setDDivh(int x, int y, GLfloat value);
-	void ballLand(GLfloat x, GLfloat y, GLfloat rad);
+	void ballLand(GLfloat x, GLfloat y);
 };
