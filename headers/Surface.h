@@ -4,14 +4,14 @@
 
 #include <GL/glew.h>
 
+#include<SDL2/SDL_assert.h>
+
 class Surface {
 	struct vert {
-
 		GLfloat div_h;
 		GLfloat ddiv_x;
 		GLfloat ddiv_y;
 		GLfloat ddiv_h;
-		Vec pos;
 		Vec normal;
 	};
 	GLuint fill;
@@ -22,6 +22,7 @@ class Surface {
 	GLfloat dist; //distance each of the vertacies are apart from each other
 	GLfloat ddist;
 	vert *plane;
+	Vec *vertecies;
 	public:
 	Surface(GLint x, GLint y, GLfloat distance);
 	~Surface();
@@ -46,4 +47,9 @@ class Surface {
 	void setDDivy(int x, int y, GLfloat value);
 	void setDDivh(int x, int y, GLfloat value);
 	void ballLand(GLfloat x, GLfloat y);
+	template<typename T>
+	inline T access2D(int x, int y, T *array) {
+		SDL_assert(x < width && y < length && x >= 0 && y >= 0);
+		return array[x + y*width];
+	}
 };
