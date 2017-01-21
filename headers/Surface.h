@@ -12,7 +12,6 @@ class Surface {
 		GLfloat ddiv_x;
 		GLfloat ddiv_y;
 		GLfloat ddiv_h;
-		Vec normal;
 	};
 	GLuint fill;
 	bool rain; //fixes flat plane bumping problem
@@ -23,6 +22,7 @@ class Surface {
 	GLfloat ddist;
 	vert *plane;
 	Vec *vertecies;
+	Vec *normals;
 	public:
 	Surface(GLint x, GLint y, GLfloat distance);
 	~Surface();

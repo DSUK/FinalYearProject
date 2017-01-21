@@ -31,6 +31,7 @@ Surface::Surface(GLint x, GLint y, GLfloat distance) {
 	ddist = distance*distance;
 	plane = new vert[width*length]; //allocate memory for the plane
 	vertecies = new Vec[width*length]; //allocate memory for the plane
+	normals = new Vec[width*length];
 	rain = false;
 	fill = GL_LINE;
 	srand(time);
@@ -48,6 +49,7 @@ Surface::Surface(GLint x, GLint y, GLfloat distance) {
 Surface::~Surface() {
 	delete[] plane;
 	delete[] vertecies;
+	delete[] normals;
 }
 
 void Surface::zeroAll() {
@@ -63,7 +65,7 @@ void Surface::zeroAll() {
 void Surface::calculateSurfaceNormals() {
 	//zero it all first
 	for(int x  = 0; x < width*length; ++x) {
-		plane[x].normal = Vec(0,0,0);
+		normals[x] = Vec(0,0,0);
 	}
 	//- d_x % d_y
 	for(int x = 0; x < width-1; ++x) {
@@ -97,7 +99,7 @@ void Surface::calculateSurfaceNormals() {
 
 void Surface::addToNormal(int x, int y, Vec input) {
 	SDL_assert(x < width && y < length && x >= 0 && y >= 0);
-    plane[x+y*width].normal += input;
+    normals[x+y*width] += input;
 }
 
 void Surface::setPosition(int x, int y, Vec input) {
@@ -114,11 +116,11 @@ void Surface::drawSurface(GLint shaderprogram) {
 		glBegin(GL_TRIANGLE_STRIP);
 		for(int y = 0; y < length; ++y) {
 			Vec posi = access2D(x,y,vertecies);
-			Vec norm = accessVert(x,y).normal;
+			Vec norm = access2D(x,y,normals);
 			glVertex3f(posi.pos.x,posi.pos.y,posi.pos.z);
 			glNormal3f(norm.pos.x,norm.pos.y,norm.pos.z);
 			posi = access2D(x+1,y,vertecies);
-			norm = accessVert(x+1,y).normal;
+			norm = access2D(x+1,y,normals);
 			glVertex3f(posi.pos.x,posi.pos.y,posi.pos.z);
 			glNormal3f(norm.pos.x,norm.pos.y,norm.pos.z);
 		}
