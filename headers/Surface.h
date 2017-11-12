@@ -4,7 +4,12 @@
 
 #include <GL/glew.h>
 
+#ifndef _MSC_VER
 #include<SDL2/SDL_assert.h>
+#else
+#include<SDL_assert.h>
+#endif // _MSC_VER
+
 
 class Surface {
 	struct vert {
