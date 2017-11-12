@@ -60,19 +60,19 @@ int InputHandler::handleEvent(Surface *heightmap) { //returns an integer signal
 					break;
 					case SDLK_w:
 					case SDLK_UP:
-						directionvcoe += 0.01;
+						directionvcoe += 0.01f;
 					break;
 					case SDLK_s:
 					case SDLK_DOWN:
-						directionvcoe -= 0.01;
+						directionvcoe -= 0.01f;
 					break;
 					case SDLK_a:
 					case SDLK_LEFT:
-						orthocoe -= 0.005;
+						orthocoe -= 0.005f;
 					break;
 					case SDLK_d:
 					case SDLK_RIGHT:
-						orthocoe +=0.005;
+						orthocoe +=0.005f;
 					break;
 					case SDLK_r:
 						heightmap->rainSwitch();
