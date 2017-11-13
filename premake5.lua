@@ -10,7 +10,7 @@ workspace "SurfaceProgram"
 	project "SurfaceProgram"
 		kind "ConsoleApp"
 		language "C++"
-		files { "src/*.cpp" }
+		files { "src/*.cpp", "src/*.cc", "src/*.cxx", "src/*.c" , "headers/*.h", "headers/*.hpp", "headers/*.hxx"  }
 		includedirs { "headers" }
 		links { "SDL2"}
 
