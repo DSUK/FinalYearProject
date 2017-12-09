@@ -1,4 +1,4 @@
-#include <chrono>
+﻿#include <chrono>
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <fstream>
@@ -13,6 +13,7 @@
 #include "Surface.h"
 #include "InputHandler.h"
 #include "ThrowContainer.h"
+#include "CLibraryContainer.h"
 
 const int WINDOW_HEIGHT = 768;
 const int WINDOW_WIDTH = 1024;
@@ -137,18 +138,23 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 int main(int argc, char *argv[])
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window *window = SDL_CreateWindow(
-		argv[0],
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		WINDOW_WIDTH,
-		WINDOW_HEIGHT,
-		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
+	CLibraryContainer<SDL_Window*> window(
+		SDL_CreateWindow(
+			argv[0],
+			SDL_WINDOWPOS_UNDEFINED,
+			SDL_WINDOWPOS_UNDEFINED,
+			WINDOW_WIDTH,
+			WINDOW_HEIGHT,
+			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
+		),
+		std::function<void(SDL_Window*)>(SDL_DestroyWindow)
 	);
+	SDL_assert(&window != nullptr);
 
-	SDL_assert(window != nullptr);
-
-	SDL_GLContext gl_context = SDL_GL_CreateContext(window);
+	CLibraryContainer<SDL_GLContext> gl_context(
+		SDL_GL_CreateContext(&window),
+		std::function<void(SDL_GLContext)>(SDL_GL_DeleteContext)
+	);
 
 	GLenum err = glewInit();
 
@@ -157,9 +163,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr,"Glew error: %s\n",glewGetErrorString(err));
 		SDL_assert(err != GLEW_OK);
 	}
-	programLoop(window);
-	SDL_GL_DeleteContext(gl_context);
-	SDL_DestroyWindow(window);
+	programLoop(&window);
 
 	SDL_Quit();
 	return 0;
