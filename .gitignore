@@ -10,5 +10,8 @@ SurfaceProgram.VC.opendb
 SurfaceProgram.sdf
 SurfaceProgram.sln
 SurfaceProgram.vcxproj
+SurfaceProgram.vcxproj.filters
 x64/
+*~
+
 
