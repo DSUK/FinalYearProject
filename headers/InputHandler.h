@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 
 class Surface;
 struct Vec;
-#define degtorad (3.141592653589793/180.0)
+const float degtorad = (3.141592653589793f / 180.0f);
 class InputHandler {
 
 	bool camera;

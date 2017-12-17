@@ -1,4 +1,4 @@
-#include "Surface.h"
+﻿#include "Surface.h"
 #include "Vec.h"
 
 #ifndef _MSC_VER
@@ -78,8 +78,8 @@ int InputHandler::handleEvent(Surface *heightmap) { //returns an integer signal
 						heightmap->rainSwitch();
 					break;
 					case SDLK_F5:
-						printf("rotation = ( %f, %f, %f )\n", rotation.pos.x, rotation.pos.y, rotation.pos.z);
-						printf("position = ( %f, %f, %f )\n", position.pos.x, position.pos.y, position.pos.z);
+						printf("rotation = ( %f, %f, %f )\n", rotation.x, rotation.y, rotation.z);
+						printf("position = ( %f, %f, %f )\n", position.x, position.y, position.z);
 					break;
 					case SDLK_SPACE:
 						camera = !camera;
@@ -106,19 +106,19 @@ int InputHandler::handleEvent(Surface *heightmap) { //returns an integer signal
 				switch(event.key.keysym.sym) {
 					case SDLK_w:
 					case SDLK_UP:
-						directionvcoe -= 0.01;
+						directionvcoe -= 0.01f;
 					break;
 					case SDLK_s:
 					case SDLK_DOWN:
-						directionvcoe +=0.01;
+						directionvcoe +=0.01f;
 					break;
 					case SDLK_a:
 					case SDLK_LEFT:
-						orthocoe +=0.005;
+						orthocoe +=0.005f;
 					break;
 					case SDLK_d:
 					case SDLK_RIGHT:
-						orthocoe -= 0.005;
+						orthocoe -= 0.005f;
 					break;
 					default:
 					break;
@@ -139,17 +139,17 @@ int InputHandler::handleEvent(Surface *heightmap) { //returns an integer signal
 			break;
 			case SDL_MOUSEMOTION:
 				if(camera) {
-					rotation.pos.x += (GLfloat)event.motion.xrel;
-					rotation.pos.x = fmod(rotation.pos.x, 360);
-					rotation.pos.y += (GLfloat)event.motion.yrel;
-					rotation.pos.y = range(-90.0,rotation.pos.y,90);
-					direction_vector.pos.x = sin(rotation.pos.x*degtorad)*cos(
-						rotation.pos.y*degtorad);
-					direction_vector.pos.y = -sin(rotation.pos.y*degtorad);
-					direction_vector.pos.z = -cos(rotation.pos.x*degtorad)*cos(
-						rotation.pos.y*degtorad);
-					ortho.pos.x = cos(rotation.pos.x*degtorad);
-					ortho.pos.z = sin(rotation.pos.x*degtorad);
+					rotation.x += (GLfloat)event.motion.xrel;
+					rotation.x = fmod(rotation.x, 360.f);
+					rotation.y += (GLfloat)event.motion.yrel;
+					rotation.y = range(-90.0,rotation.y,90);
+					direction_vector.x = sinf(rotation.x*degtorad)*cosf(
+						rotation.y*degtorad);
+					direction_vector.y = -sinf(rotation.y*degtorad);
+					direction_vector.z = -cosf(rotation.x*degtorad)*cosf(
+						rotation.y*degtorad);
+					ortho.x = cosf(rotation.x*degtorad);
+					ortho.z = sinf(rotation.x*degtorad);
 				}
 			break;
 		}
@@ -160,7 +160,7 @@ void InputHandler::movement(float delta) {
 	position = position + delta*((directionvcoe*direction_vector) + (orthocoe*ortho));
 }
 void InputHandler::preRenderTranslate() {
-	glRotatef(rotation.pos.x,0.0,1.0,0.0);
-	glRotatef(rotation.pos.y,cos(rotation.pos.x*degtorad),0.0,sin(rotation.pos.x*degtorad));
-	glTranslatef(-position.pos.x,-position.pos.y,-position.pos.z);
+	glRotatef(rotation.x,0.0,1.0,0.0);
+	glRotatef(rotation.y,cos(rotation.x*degtorad),0.0,sin(rotation.x*degtorad));
+	glTranslatef(-position.x,-position.y,-position.z);
 }

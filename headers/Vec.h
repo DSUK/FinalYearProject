@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <GL/glew.h>
 #define NO_SDL_GLEXT
 #ifndef _MSC_VER
@@ -15,7 +15,7 @@ struct Vec
 		__m128 data;
 		struct {
 			GLfloat w,x,y,z; //4 floating points now have to be used
-		} pos;
+		};
 	};
 	Vec();
 	Vec(__m128 input);

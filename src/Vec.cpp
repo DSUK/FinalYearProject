@@ -1,4 +1,4 @@
-#include "Vec.h"
+﻿#include "Vec.h"
 
 Vec::Vec() {
 	Vec(0,0,0);
@@ -7,12 +7,12 @@ Vec::Vec (__m128 input) {
 	data = input;
 }
 Vec::Vec(GLfloat ix, GLfloat iy, GLfloat iz) {
-	pos.x = ix;
-	pos.y = iy;
-	pos.z = iz;
+	x = ix;
+	y = iy;
+	z = iz;
 }
 void Vec::normalise() {
-	pos.w = 0;
+	w = 0;
 	__m128 temp = _mm_mul_ps(data,data); //multiply data with self
 	temp = _mm_hadd_ps(temp,temp);	   // returns (x + y, z + w, x + y, z + w)
 	temp = _mm_hadd_ps(temp,temp);	   // returns (x + y + z + w, x + y + z + w, x + y + z + w, x + y + z + w)
@@ -38,7 +38,7 @@ Vec operator + (Vec lhs, Vec rhs) {
 	return Vec(_mm_add_ps(lhs.data,rhs.data));
 }
 GLfloat operator * (Vec lhs, Vec rhs) { //dot product
-	lhs.pos.w = 0.0f;
+	lhs.w = 0.0f;
 	__m128 temp = _mm_mul_ps(lhs.data,rhs.data);
 	temp = _mm_hadd_ps(temp,temp);	   // returns (x + y, z + w, x + y, z + w)
 	temp = _mm_hadd_ps(temp,temp);	   // returns (x + y + z + w, x + y + z + w, x + y + z + w, x + y + z + w)
@@ -47,7 +47,7 @@ GLfloat operator * (Vec lhs, Vec rhs) { //dot product
 	return t;
 }
 Vec operator - (Vec rhs) {
-	return Vec(-rhs.pos.x,-rhs.pos.y,-rhs.pos.z);
+	return Vec(-rhs.x,-rhs.y,-rhs.z);
 }
 Vec operator - (Vec lhs, Vec rhs) {
 	return Vec(_mm_sub_ps(lhs.data,rhs.data));

@@ -13,5 +13,4 @@ SurfaceProgram.vcxproj
 SurfaceProgram.vcxproj.filters
 x64/
 *~
-
-
+*.swp
