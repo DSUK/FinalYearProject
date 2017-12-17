@@ -20,4 +20,6 @@ workspace "SurfaceProgram"
 		
 		configuration "vs*"
 			links { "SDL2main", "opengl32", "glew32", "glu32" }
+			files { "shaders/*" }
+			removefiles { "*~" }
 
