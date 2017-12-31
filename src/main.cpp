@@ -1,4 +1,5 @@
-﻿#include <chrono>
+﻿#pragma once
+#include <chrono>
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <fstream>
@@ -66,6 +67,9 @@ void programLoop(SDL_Window *window)
 		glUniform3f(glGetUniformLocation(program,"speclight"),1.0,1.0,1.0);
 
 		mouse.preRenderTranslate();
+		float _mat[16];
+		glGetFloatv(GL_MODELVIEW_MATRIX, _mat);
+		glUniformMatrix4fv(glGetUniformLocation(program, "MV"), 1, GL_FALSE, _mat);
 		heightmap.calculateSurfaceNormals();
 		heightmap.setHeights();
 		heightmap.drawSurface(program);
