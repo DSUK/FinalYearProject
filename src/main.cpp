@@ -32,11 +32,14 @@ void programLoop(SDL_Window *window)
 	unsigned int frag,vertex,program;
 	loadShaders(&program,&frag,&vertex);
 	int continueloop =1;
+	float projectionmatrix[16];
 	Surface heightmap(100,100,0.05);
 	InputHandler mouse;
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(45.0,(GLfloat)WINDOW_WIDTH/(GLfloat)WINDOW_HEIGHT,1.0,700.0);
+	glGetFloatv(GL_PROJECTION_MATRIX, projectionmatrix);
+	glUniformMatrix4fv(glGetUniformLocation(program,"ProjectionMatrix"),1,GL_FALSE, projectionmatrix);
 	glEnable(GL_NORMALIZE);
 	ThrowContainer ballList;
 	glMatrixMode(GL_MODELVIEW);

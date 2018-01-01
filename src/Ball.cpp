@@ -9,8 +9,6 @@ void Ball::draw(GLfloat rad)
 	glTranslatef(pos.x,pos.y,pos.z);
 	glGetIntegerv(GL_CURRENT_PROGRAM, &Program);
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
-	GLint test = -1;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &test);
 	glUniformMatrix4fv(glGetUniformLocation(Program,"MV"),1,GL_FALSE,modelview);
 
 	GLUquadricObj* Sphere = gluNewQuadric();

@@ -25,10 +25,15 @@ void handle_resize(Uint32 window_id, int x, int y) {
 	SDL_Window *window = SDL_GetWindowFromID(window_id);
 	SDL_assert(window != nullptr);
 	SDL_SetWindowSize(window,x,y);
+	GLint Program;
+	float projectionmatrix[16];
 	glViewport(0,0,x,y);
 	glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(45.0,(GLfloat)x/(GLfloat)y,1.0,700.0);
+		glGetIntegerv(GL_CURRENT_PROGRAM, &Program);
+		glGetFloatv(GL_PROJECTION_MATRIX, projectionmatrix);
+		glUniformMatrix4fv(glGetUniformLocation(Program,"ProjectionMatrix"),1,GL_FALSE, projectionmatrix);
 	glMatrixMode(GL_MODELVIEW);
 }
 
