@@ -6,11 +6,15 @@ Vec::Vec() {
 Vec::Vec (__m128 input) {
 	data = input;
 }
-Vec::Vec(GLfloat ix, GLfloat iy, GLfloat iz) {
+Vec::Vec(GLfloat ix, GLfloat iy, GLfloat iz, GLfloat iw) {
 	x = ix;
 	y = iy;
 	z = iz;
+	w = iw;
 }
+Vec::Vec(GLfloat ix, GLfloat iy, GLfloat iz) : Vec(ix,iy,iz,0.f) {}
+
+
 void Vec::normalise() {
 	w = 0;
 	__m128 temp = _mm_mul_ps(data,data); //multiply data with self
@@ -31,15 +35,15 @@ void Vec::operator += (Vec rhs) {
 	data = _mm_add_ps(data,rhs.data);
 }
 
-
-
+GLfloat& Vec::operator[] (GLuint index) {
+	return _arr[index];
+}
 
 Vec operator + (Vec lhs, Vec rhs) {
 	return Vec(_mm_add_ps(lhs.data,rhs.data));
 }
-GLfloat operator * (Vec lhs, Vec rhs) { //dot product
-	lhs.w = 0.0f;
-	__m128 temp = _mm_mul_ps(lhs.data,rhs.data);
+GLfloat Vec::operator * (Vec rhs) { //dot product
+	__m128 temp = _mm_mul_ps(this->data,rhs.data);
 	temp = _mm_hadd_ps(temp,temp);	   // returns (x + y, z + w, x + y, z + w)
 	temp = _mm_hadd_ps(temp,temp);	   // returns (x + y + z + w, x + y + z + w, x + y + z + w, x + y + z + w)
 	GLfloat t;
@@ -54,12 +58,13 @@ Vec operator - (Vec lhs, Vec rhs) {
 }
 Vec operator % (Vec lhs, Vec rhs) { //cross product
 	__m128 temp1, temp2;
+	//Note: it's _MM_SHUFFLE(w,z,y,x) -> for xyzw = 0123
 
-	temp1 = _mm_mul_ps(_mm_shuffle_ps(lhs.data,lhs.data,_MM_SHUFFLE(1,3,2,0)),
-		_mm_shuffle_ps(rhs.data,rhs.data,_MM_SHUFFLE(2,1,3,0)));
+	temp1 = _mm_mul_ps(_mm_shuffle_ps(lhs.data,lhs.data,_MM_SHUFFLE(3,0,2,1)),
+		_mm_shuffle_ps(rhs.data,rhs.data,_MM_SHUFFLE(3,1,0,2)));
 
-	temp2 = _mm_mul_ps(_mm_shuffle_ps(lhs.data,lhs.data,_MM_SHUFFLE(2,1,3,0)),
-		_mm_shuffle_ps(rhs.data,rhs.data,_MM_SHUFFLE(1,3,2,0)));
+	temp2 = _mm_mul_ps(_mm_shuffle_ps(lhs.data,lhs.data,_MM_SHUFFLE(3,1,0,2)),
+		_mm_shuffle_ps(rhs.data,rhs.data,_MM_SHUFFLE(3,0,2,1)));
 
 	return Vec(_mm_sub_ps(temp1,temp2));
 }

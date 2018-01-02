@@ -10,14 +10,14 @@
 #include <SDL.h>
 #endif
 
-#include "Vec.h"
 #include "Surface.h"
 #include "InputHandler.h"
 #include "ThrowContainer.h"
 #include "CLibraryContainer.h"
+#include "Mat4x4.h"
 
-const int WINDOW_HEIGHT = 768;
-const int WINDOW_WIDTH = 1024;
+const int kWindowHeight = 768;
+const int kWindowWidth = 1024;
 
 typedef std::chrono::high_resolution_clock Time;
 typedef std::chrono::duration<GLfloat> fsecond;
@@ -32,14 +32,12 @@ void programLoop(SDL_Window *window)
 	unsigned int frag,vertex,program;
 	loadShaders(&program,&frag,&vertex);
 	int continueloop =1;
-	float projectionmatrix[16];
 	Surface heightmap(100,100,0.05);
 	InputHandler mouse;
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-	glMatrixMode(GL_PROJECTION);
-	gluPerspective(45.0,(GLfloat)WINDOW_WIDTH/(GLfloat)WINDOW_HEIGHT,1.0,700.0);
-	glGetFloatv(GL_PROJECTION_MATRIX, projectionmatrix);
-	glUniformMatrix4fv(glGetUniformLocation(program,"ProjectionMatrix"),1,GL_FALSE, projectionmatrix);
+	auto projectionMatrix = Mat4x4::Perspective(kFovy, (GLfloat)kWindowWidth / (GLfloat)kWindowHeight, kPerspectiveNear, kPersperciveFar);
+	glUniformMatrix4fv(glGetUniformLocation(program,"ProjectionMatrix"),1,GL_FALSE, &projectionMatrix(0,0));
+
 	glEnable(GL_NORMALIZE);
 	ThrowContainer ballList;
 	glMatrixMode(GL_MODELVIEW);
@@ -141,7 +139,6 @@ void loadShaders(unsigned int *program,unsigned int *FragID,unsigned int *VertID
 	glLinkProgram(*program);
 	glUseProgram(*program);
 }
-
 int main(int argc, char *argv[])
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -150,8 +147,8 @@ int main(int argc, char *argv[])
 			argv[0],
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
-			WINDOW_WIDTH,
-			WINDOW_HEIGHT,
+			kWindowWidth,
+			kWindowHeight,
 			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
 		),
 		std::function<void(SDL_Window*)>(SDL_DestroyWindow)
